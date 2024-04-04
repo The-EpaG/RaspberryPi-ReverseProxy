@@ -1,0 +1,3 @@
+[submodule "SimpleAuthServer-Express"]
+	path = SimpleAuthServer-Express
+	url = git@github.com:The-EpaG/SimpleAuthServer-Express.git

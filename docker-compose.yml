@@ -1,0 +1,23 @@
+services:
+  reverse-proxy:
+    image: nginx
+    container_name: reverse-proxy
+    ports:
+      - 80:80
+    restart: unless-stopped
+    volumes:
+      - ./nginx/conf/:/etc/nginx/conf.d/:ro
+      - ./nginx/sites/:/var/www/html/:ro
+    depends_on:
+      - auth
+      - php
+  auth:
+    build: ./SimpleAuthServer-Express
+    container_name: auth
+    restart: unless-stopped
+  php:
+    image: php:fpm-alpine
+    container_name: php
+    restart: unless-stopped
+    volumes:
+      - ./nginx/sites/:/var/www/html/
