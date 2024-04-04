@@ -1,4 +1,5 @@
 services:
+  # System
   reverse-proxy:
     image: nginx
     container_name: reverse-proxy
@@ -21,3 +22,15 @@ services:
     restart: unless-stopped
     volumes:
       - ./nginx/sites/:/var/www/html/
+  # Programs
+  adguardhome:
+    image: adguard/adguardhome
+    container_name: adguardhome
+    ports:
+      - 54:53 # DNS
+      - 67:67 # DHCP
+      - 68:68 # DHCP
+    volumes:
+      - ./adguardhome/workdir/:/opt/adguardhome/work/:rw
+      - ./adguardhome/confdir/:/opt/adguardhome/conf/:rw
+    restart: unless-stopped
